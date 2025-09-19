@@ -9,9 +9,6 @@ import {
   FolderOpen,
   BookOpen,
   User,
-  Users,
-  FileText,
-  UserCheck,
   Settings,
   Building,
   BookMarked,
@@ -75,7 +72,7 @@ const menuItems: MenuItem[] = [
 
 export const RightSidebar: React.FC = () => {
   const dispatch = useAppDispatch();
-  const { sidebarOpen, activeView } = useAppSelector((state) => state.ui);
+  const { activeView } = useAppSelector((state) => state.ui);
   const [expandedItems, setExpandedItems] = React.useState<string[]>(['favorites', 'dashboards']);
 
   const toggleExpanded = (itemId: string) => {

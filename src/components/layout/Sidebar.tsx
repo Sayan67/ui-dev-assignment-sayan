@@ -4,18 +4,6 @@ import { setActiveView } from "@/store/slices/uiSlice";
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
 import {
-  LayoutDashboard,
-  ShoppingCart,
-  FolderOpen,
-  BookOpen,
-  User,
-  Users,
-  FileText,
-  UserCheck,
-  Settings,
-  Building,
-  BookMarked,
-  MessageSquare,
   ChevronDown,
   ChevronRight,
 } from "lucide-react";

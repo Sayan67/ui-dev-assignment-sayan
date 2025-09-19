@@ -1,7 +1,6 @@
 import { Provider } from 'react-redux';
 import { store } from '@/store';
 import { Layout } from '@/components/layout/Layout';
-import { ModeToggle } from "./components/theme-toggle";
 
 function App() {
   return (

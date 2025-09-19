@@ -3,15 +3,7 @@ import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import { toggleSidebar, setSearchQuery, toggleRightSidebar } from "@/store/slices/uiSlice";
 import { Input } from "@/components/ui/input";
 import {
-  Menu,
-  Search,
-  Star,
-  Sun,
-  Moon,
-  Settings,
-  Bell,
-  LayoutGrid,
-  User,
+  Search
 } from "lucide-react";
 import { ModeToggle } from "../theme-toggle";
 import {
@@ -24,7 +16,7 @@ import { GrCommand } from "react-icons/gr";
 
 export const Header: React.FC = () => {
   const dispatch = useAppDispatch();
-  const { searchQuery, activeView, rightSidebarOpen } = useAppSelector((state) => state.ui);
+  const { searchQuery, activeView } = useAppSelector((state) => state.ui);
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     dispatch(setSearchQuery(e.target.value));
