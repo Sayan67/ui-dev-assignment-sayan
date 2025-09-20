@@ -1,17 +1,20 @@
-import { Provider } from 'react-redux';
-import { store } from '@/store';
-import { Layout } from '@/components/layout/Layout';
+import { Layout } from "@/components/layout/Layout";
+import { useAppSelector } from "./hooks/redux";
+import { ErrorBoundary } from "react-error-boundary";
+import { ScreenMap } from "./components/layout/screenMap";
 
 function App() {
+  const { activeView } = useAppSelector((state) => state.ui);
+  const Component = () => {
+    const SelectedComponent = ScreenMap[activeView.toLowerCase() as keyof typeof ScreenMap];
+    return SelectedComponent ? SelectedComponent : <div className="h-full w-full flex items-center justify-center">Screen Not available now :)</div>;
+  };
   return (
-    <Provider store={store}>
+    <ErrorBoundary fallback={<p>⚠️Something went wrong</p>}>
       <Layout>
-        <div className="space-y-6">
-          <h1 className="text-3xl font-bold">eCommerce Dashboard</h1>
-          {/* Dashboard content will go here */}
-        </div>
+        <Component />
       </Layout>
-    </Provider>
+    </ErrorBoundary>
   );
 }
 

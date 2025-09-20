@@ -96,9 +96,10 @@ src/
 - [x] shadcn/ui integration
 - [x] Redux Toolkit setup
 - [x] Theme system (dark/light mode)
+- [x] Layout components (Sidebar, Header, RightSidebar)
+- [x] React Router implementation for navigation
 
 ### In Progress 🔄
-- [ ] Layout components (Sidebar, Header)
 - [ ] Dashboard cards (Customers, Orders, Revenue, Growth)
 - [ ] Chart implementations
 - [ ] Data tables with sorting/pagination

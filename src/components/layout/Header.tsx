@@ -1,10 +1,13 @@
 import React, { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
-import { toggleSidebar, setSearchQuery, toggleRightSidebar } from "@/store/slices/uiSlice";
-import { Input } from "@/components/ui/input";
 import {
-  Search
-} from "lucide-react";
+  toggleSidebar,
+  setSearchQuery,
+  toggleRightSidebar,
+} from "@/store/slices/uiSlice";
+import { Input } from "@/components/ui/input";
+import { useLocation } from "react-router-dom";
+import { Search } from "lucide-react";
 import { ModeToggle } from "../theme-toggle";
 import {
   PiBellDuotone,
@@ -16,10 +19,29 @@ import { GrCommand } from "react-icons/gr";
 
 export const Header: React.FC = () => {
   const dispatch = useAppDispatch();
-  const { searchQuery, activeView } = useAppSelector((state) => state.ui);
+  const { searchQuery } = useAppSelector((state) => state.ui);
+  const location = useLocation();
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     dispatch(setSearchQuery(e.target.value));
+  };
+
+  // Generate breadcrumb from current path
+  const getBreadcrumb = () => {
+    const pathParts = location.pathname.split("/").filter(Boolean);
+    if (pathParts.length === 0) return "Dashboard";
+
+    // Capitalize and format the path parts
+    const formatted = pathParts.map((part,ind) => (
+      <span className={`${ind === pathParts.length - 1 ? 'text-foreground' : 'text-foreground/40'}`} key={part}>
+        {part
+          .split("-")
+          .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+          .join(" ")}{} {ind < pathParts.length - 1 && <span className="mx-1">/</span>}
+      </span>
+    ));
+
+    return formatted;
   };
 
   useEffect(() => {
@@ -49,9 +71,7 @@ export const Header: React.FC = () => {
         {/* </Button> */}
 
         <div className="flex items-center gap-2 text-sm text-muted-foreground">
-          <span>Dashboards</span>
-          <span>/</span>
-          <span className="text-foreground font-medium">{activeView}</span>
+          {getBreadcrumb()}
         </div>
       </div>
 
@@ -76,8 +96,7 @@ export const Header: React.FC = () => {
 
         <PiClockCounterClockwiseDuotone className="h-5 w-5 cursor-pointer" />
 
-        <PiBellDuotone 
-        className="h-5 w-5 cursor-pointer" />
+        <PiBellDuotone className="h-5 w-5 cursor-pointer" />
         {/* <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant="ghost" size="icon" className="relative">
@@ -112,9 +131,10 @@ export const Header: React.FC = () => {
           </DropdownMenuContent>
         </DropdownMenu> */}
 
-        <PiSidebarDuotone 
-        onClick={() => dispatch(toggleRightSidebar())}
-        className="h-5 w-5 cursor-pointer" />
+        <PiSidebarDuotone
+          onClick={() => dispatch(toggleRightSidebar())}
+          className="h-5 w-5 cursor-pointer"
+        />
       </div>
     </header>
   );

@@ -1,5 +1,5 @@
 import React from "react";
-import { Sidebar } from "./Sidebar";
+import { SidebarWithRouter } from "./SidebarWithRouter";
 import { Header } from "./Header";
 import { cn } from "@/lib/utils";
 import { useAppSelector } from "@/hooks/redux";
@@ -15,8 +15,8 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
   const rightSidebarOpen = useAppSelector((state) => state.ui.rightSidebarOpen);
 
   return (
-    <div className="flex h-screen bg-background text-foreground overflow-x-hidden">
-      <AnimatePresence>{sidebarOpen && <Sidebar />}</AnimatePresence>
+    <div className="flex h-screen bg-background text-foreground overflow-x-hidden overflow-y-auto">
+      <AnimatePresence>{sidebarOpen && <SidebarWithRouter />}</AnimatePresence>
       <div
         className={cn(
           "flex-1 flex flex-col transition-all duration-300",
@@ -24,7 +24,7 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
         )}
       >
         <Header />
-        <main className="flex-1 overflow-y-auto p-6">{children}</main>
+        <main className="flex-1 overflow-y-auto p-7 ">{children}</main>
       </div>
       <AnimatePresence>
         {rightSidebarOpen && <RightSidebar />}
