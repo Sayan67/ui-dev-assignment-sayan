@@ -30,7 +30,7 @@ export const RevenueChart: React.FC = () => {
         <div className="flex items-center gap-4 h-4">
           <CardTitle className="text-sm font-semibold">Revenue</CardTitle>
           <Separator orientation="vertical" className="bg-foreground/20" />
-          <div className="flex items-center gap-4 text-xs">
+          <div className="flex flex-col md:flex-row md:items-center md:gap-4 text-xs">
             <div className="flex items-center gap-2">
               <div className="w-2 h-2 rounded-full bg-secondary-cyan" />
               <span>Current Week <span className='font-semibold'>${revenueChart.currentWeek.toLocaleString()}</span></span>
@@ -42,7 +42,7 @@ export const RevenueChart: React.FC = () => {
           </div>
         </div>
       </CardHeader>
-      <CardContent>
+      <CardContent className='p-0 pr-4'>
         <ChartContainer config={chartConfig} className="h-[300px] w-full">
           <LineChart data={revenueChart.data}>
             <CartesianGrid vertical={false} className="stroke-foreground/20" />

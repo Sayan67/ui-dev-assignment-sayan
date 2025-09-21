@@ -1,6 +1,9 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { PiBroadcast, PiBugBeetle, PiUser } from "react-icons/pi";
+import { X } from "lucide-react";
+import { toggleRightSidebar } from "@/store/slices/uiSlice";
+import { useAppDispatch } from "@/hooks/redux";
 
 interface NotificationItem {
   id: string;
@@ -99,14 +102,16 @@ const contacts: ContactItem[] = [
 ];
 
 export const RightSidebar: React.FC = () => {
+  const dispatch = useAppDispatch();
   return (
     <motion.aside
       animate={{ width: "100%" }}
       exit={{ width: 0 }}
       layout
-      className="max-w-[280px] h-screen bg-background border-l border-border flex flex-col p-5 overflow-y-auto"
+      className="max-w-[280px] h-screen bg-background border-l border-border flex flex-col p-5 overflow-y-auto fixed lg:relative right-0 top-0 z-50"
     >
       {/* Notifications Section */}
+      <X onClick={()=>dispatch(toggleRightSidebar())} className="bg-foreground/5 rounded-full p-1 border absolute top-6 right-2 md:hidden"/>
       <section className="mb-8">
         <h2 className="text-sm font-semibold mb-4">Notifications</h2>
         <div className="space-y-4">
@@ -116,7 +121,7 @@ export const RightSidebar: React.FC = () => {
                 {notification.icon}
               </div>
               <div className="flex-1 min-w-0">
-                <p className="text-sm truncate">{notification.message}</p>
+                <p className="text-xs truncate">{notification.message}</p>
                 <p className="text-xs text-muted-foreground">
                   {notification.time}
                 </p>
@@ -138,10 +143,10 @@ export const RightSidebar: React.FC = () => {
                   alt={activity.name}
                   className="w-8 h-8 rounded-full flex-shrink-0"
                 />
-                {ind<activities.length-1&&<div className="h-3 w-0.5 bg-primary-light/40 absolute left-1/2 -translate-x-1/2 bottom-0 translate-y-[135%]"></div>}
+                {ind<activities.length-1&&<div className="h-3 w-0.5 bg-foreground/20 absolute left-1/2 -translate-x-1/2 bottom-0 translate-y-[135%]"></div>}
               </div>
               <div className="flex-1 min-w-0">
-                <p className="text-sm">
+                <p className="text-xs">
                   {activity.name} {activity.action}
                 </p>
                 <p className="text-xs text-muted-foreground">{activity.time}</p>

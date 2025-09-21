@@ -188,14 +188,13 @@ export const OrdersList: React.FC = () => {
   });
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-4 w-full">
       <div className="flex items-center justify-between">
         <h1 className="text-sm font-semibold">Order List</h1>
       </div>
 
-      <Card className="border-none shadow-none bg-card p-0">
+      <Card className="border-none shadow-none bg-card p-0 w-screen">
         <CardContent className="p-0 gap-0">
-          {/* Action Bar */}
           <div className="flex items-center justify-between bg-primary-light dark:bg-primary-light/15 p-2 rounded-xl">
             <div className="flex items-center gap-2">
               <Button size="icon" variant="ghost" className="h-7 w-7 p-0 cursor-pointer">
@@ -221,8 +220,7 @@ export const OrdersList: React.FC = () => {
             </div>
           </div>
 
-          {/* Table */}
-          <Table className="overflow-x-auto">
+          <Table className="">
             <TableHeader>
               {table.getHeaderGroups().map((headerGroup) => (
                 <TableRow
@@ -263,7 +261,6 @@ export const OrdersList: React.FC = () => {
             </TableBody>
           </Table>
 
-          {/* Pagination */}
           <div className="mt-6 flex justify-end w-full text-sm">
             <Pagination className="w-fit flex justify-end px-6">
               <PaginationContent>

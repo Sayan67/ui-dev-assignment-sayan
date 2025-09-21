@@ -136,7 +136,7 @@ export const Sidebar: React.FC = () => {
     const isActive = activeView === item.label;
 
     return (
-      <div key={item.id}>
+      <div key={item.id} className="">
         <button
           onClick={() => {
             if (level > 0 && hasChildren) {
@@ -189,7 +189,7 @@ export const Sidebar: React.FC = () => {
     layout
     animate={{ width: "100%" }} 
     key="modal" exit={{ width: 0 }}
-    className="max-w-[220px] h-screen bg-background border-r border-border flex flex-col py-5 text-sm">
+    className="max-w-[220px] h-screen bg-background border-r border-border flex-col py-5 text-sm fixed">
       <div className=" flex gap-2 items-center mb-8 px-4 pt-2">
         <img src="/logos/main-logo.png" alt="Logo" className="h-6 w-6" />
         <h1 className="text-sm font-normal">ByeWind</h1>

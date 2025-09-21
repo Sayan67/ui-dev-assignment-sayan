@@ -15,7 +15,7 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
   const rightSidebarOpen = useAppSelector((state) => state.ui.rightSidebarOpen);
 
   return (
-    <div className="flex h-screen bg-background text-foreground overflow-x-hidden overflow-y-auto">
+    <div className="flex h-screen bg-background text-foreground overflow-y-auto">
       <AnimatePresence>{sidebarOpen && <SidebarWithRouter />}</AnimatePresence>
       <div
         className={cn(

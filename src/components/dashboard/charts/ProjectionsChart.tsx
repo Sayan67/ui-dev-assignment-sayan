@@ -28,8 +28,8 @@ export const ProjectionsChart: React.FC = () => {
       <CardHeader>
         <CardTitle className="text-sm font-semibold">Projections vs Actuals</CardTitle>
       </CardHeader>
-      <CardContent className='pr-4'>
-        <ChartContainer config={chartConfig} className="h-[220px] xl:h-[180px] w-full">
+      <CardContent className='p-0 pr-4'>
+        <ChartContainer config={chartConfig} className="w-full md:h-[220px] xl:h-[180px]">
           <BarChart data={projectionsChart.data}>
             <CartesianGrid vertical={false} className="stroke-foreground/20" />
             <XAxis 
@@ -46,8 +46,7 @@ export const ProjectionsChart: React.FC = () => {
             />
             <ChartTooltip 
               content={
-                <ChartTooltipContent
-                />
+                <ChartTooltipContent/>
               }
             />
             <Bar

@@ -5,9 +5,14 @@ import { motion } from "framer-motion";
 import {
   ChevronDown,
   ChevronRight,
+  X,
 } from "lucide-react";
 import { PiBookOpenDuotone, PiChartPieSliceDuotone, PiChatsTeardropDuotone, PiIdentificationBadgeDuotone, PiIdentificationCardDuotone, PiNotebookDuotone, PiShoppingBagOpenDuotone, PiUsersThreeDuotone } from "react-icons/pi";
 import { RiFolder6Line } from "react-icons/ri";
+import {
+  toggleSidebar
+} from "@/store/slices/uiSlice";
+import { useAppDispatch } from "@/hooks/redux";
 
 interface MenuItem {
   id: string;
@@ -127,6 +132,7 @@ const menuItems: MenuItem[] = [
 export const SidebarWithRouter: React.FC = () => {
   const navigate = useNavigate();
   const location = useLocation();
+    const dispatch = useAppDispatch();
   const [expandedItems, setExpandedItems] = React.useState<string[]>([
     "dashboards",
     "pages"
@@ -208,8 +214,9 @@ export const SidebarWithRouter: React.FC = () => {
       animate={{ width: "100%" }} 
       key="modal" 
       exit={{ width: 0 }}
-      className="max-w-[220px] h-screen bg-background border-r border-border flex flex-col py-5 text-sm"
+      className="max-w-[220px] h-screen bg-background border-r border-border flex flex-col py-5 text-sm fixed lg:relative left-0 top-0 z-50"
     >
+      <X onClick={()=>dispatch(toggleSidebar())} className="bg-foreground/5 rounded-full p-1 border absolute top-6 right-2 md:hidden"/>
       <div className=" flex gap-2 items-center mb-8 px-4 pt-2">
         <img src="/logos/main-logo.png" alt="Logo" className="h-6 w-6" />
         <h1 className="text-sm font-normal">ByeWind</h1>

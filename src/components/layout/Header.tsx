@@ -32,12 +32,20 @@ export const Header: React.FC = () => {
     if (pathParts.length === 0) return "Dashboard";
 
     // Capitalize and format the path parts
-    const formatted = pathParts.map((part,ind) => (
-      <span className={`${ind === pathParts.length - 1 ? 'text-foreground' : 'text-foreground/40'}`} key={part}>
+    const formatted = pathParts.map((part, ind) => (
+      <span
+        className={`${
+          ind === pathParts.length - 1
+            ? "text-foreground"
+            : "text-foreground/40"
+        }`}
+        key={part}
+      >
         {part
           .split("-")
           .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-          .join(" ")}{} {ind < pathParts.length - 1 && <span className="mx-1">/</span>}
+          .join(" ")}
+        {} {ind < pathParts.length - 1 && <span className="mx-1">/</span>}
       </span>
     ));
 
@@ -59,45 +67,46 @@ export const Header: React.FC = () => {
   }, []);
 
   return (
-    <header className="w-full border-b border-border bg-background flex flex-col md:flex-row  items-center justify-between px-7 py-5">
-      <div className="flex items-center gap-4 flex-1">
-        <PiSidebarDuotone
-          className="h-5 w-5 cursor-pointer"
-          onClick={() => dispatch(toggleSidebar())}
-        />
-
-        {/* <Button variant="ghost" size="icon"> */}
-        <PiStarDuotone className="h-5 w-5 cursor-pointer" />
-        {/* </Button> */}
-
-        <div className="flex items-center gap-2 text-sm text-muted-foreground">
-          {getBreadcrumb()}
-        </div>
-      </div>
-
-      <div className="flex items-center gap-4">
-        <div className="relative">
-          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-foreground/20" />
-          <Input
-            id="header-search"
-            type="search"
-            placeholder="Search"
-            value={searchQuery}
-            onChange={handleSearchChange}
-            className="w-[200px] px-9 bg-foreground/5 placeholder:text-foreground/20"
+    <header className="w-full border-b border-border bg-background p-3 md:px-7 md:py-5">
+      <div className="flex  items-center justify-between gap-2">
+        <div className="flex items-center gap-4 flex-1">
+          <PiSidebarDuotone
+            className="h-5 w-5 cursor-pointer"
+            onClick={() => dispatch(toggleSidebar())}
           />
-          <span className="absolute right-3 top-1/2 transform -translate-y-1/2 text-foreground/20 flex items-center gap-0.5">
-            <GrCommand className="h-4 w-3 " />
-            {"/"}
-          </span>
+
+          {/* <Button variant="ghost" size="icon"> */}
+          <PiStarDuotone className="h-5 w-5 cursor-pointer" />
+          {/* </Button> */}
+
+          <div className="hidden md:flex items-center gap-2 text-sm text-muted-foreground">
+            {getBreadcrumb()}
+          </div>
         </div>
 
-        <ModeToggle />
+        <div className="flex items-center gap-4">
+          <div className="relative hidden md:block">
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-foreground/20" />
+            <Input
+              id="header-search"
+              type="search"
+              placeholder="Search"
+              value={searchQuery}
+              onChange={handleSearchChange}
+              className="w-[200px] px-9 bg-foreground/5 placeholder:text-foreground/20"
+            />
+            <span className="absolute right-3 top-1/2 transform -translate-y-1/2 text-foreground/20 flex items-center gap-0.5">
+              <GrCommand className="h-4 w-3 " />
+              {"/"}
+            </span>
+          </div>
 
-        <PiClockCounterClockwiseDuotone className="h-5 w-5 cursor-pointer" />
+          <ModeToggle/>
 
-        <PiBellDuotone className="h-5 w-5 cursor-pointer" />
-        {/* <DropdownMenu>
+          <PiClockCounterClockwiseDuotone className="h-5 w-5 cursor-pointer" />
+
+          <PiBellDuotone className="h-5 w-5 cursor-pointer" />
+          {/* <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant="ghost" size="icon" className="relative">
               <span className="absolute top-1 right-1 h-2 w-2 bg-red-500 rounded-full" />
@@ -131,10 +140,27 @@ export const Header: React.FC = () => {
           </DropdownMenuContent>
         </DropdownMenu> */}
 
-        <PiSidebarDuotone
-          onClick={() => dispatch(toggleRightSidebar())}
-          className="h-5 w-5 cursor-pointer"
-        />
+          <PiSidebarDuotone
+            onClick={() => dispatch(toggleRightSidebar())}
+            className="h-5 w-5 cursor-pointer"
+          />
+        </div>
+      </div>
+      <div className="mt-3 md:mt-0 space-y-2 md:hidden">
+        <div className="relative">
+          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-foreground/20" />
+          <Input
+            id="header-search"
+            type="search"
+            placeholder="Search"
+            value={searchQuery}
+            onChange={handleSearchChange}
+            className="w-full px-9 bg-foreground/5 placeholder:text-foreground/20"
+          />
+        </div>
+        <div className="flex items-center gap-2 text-sm text-muted-foreground">
+          {getBreadcrumb()}
+        </div>
       </div>
     </header>
   );

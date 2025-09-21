@@ -83,7 +83,7 @@ export const WorldMap: React.FC = () => {
           Revenue by Location
         </CardTitle>
       </CardHeader>
-      <CardContent>
+      <CardContent className="p-4">
         <div ref={chartRef} className="h-[100px] w-full" />
         <div className="mt-4 space-y-5">
           {revenueByLocation.map((location) => (
