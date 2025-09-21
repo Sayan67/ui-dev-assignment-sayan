@@ -59,7 +59,7 @@ export const Header: React.FC = () => {
   }, []);
 
   return (
-    <header className=" border-b border-border bg-background flex flex-col md:flex-row  items-center justify-between px-7 py-5">
+    <header className="w-full border-b border-border bg-background flex flex-col md:flex-row  items-center justify-between px-7 py-5">
       <div className="flex items-center gap-4 flex-1">
         <PiSidebarDuotone
           className="h-5 w-5 cursor-pointer"

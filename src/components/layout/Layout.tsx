@@ -19,12 +19,12 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
       <AnimatePresence>{sidebarOpen && <SidebarWithRouter />}</AnimatePresence>
       <div
         className={cn(
-          "flex-1 flex flex-col transition-all duration-300",
+          "flex-1 flex flex-col transition-all duration-300 items-center",
           !sidebarOpen && "ml-0"
         )}
       >
         <Header />
-        <main className="flex-1 overflow-y-auto p-7 ">{children}</main>
+        <main className="flex-1 overflow-y-auto p-7 max-w-[1440px] w-full">{children}</main>
       </div>
       <AnimatePresence>
         {rightSidebarOpen && <RightSidebar />}
