@@ -70,9 +70,66 @@ const statusColors = {
 export const OrdersList: React.FC = () => {
   const [sorting, setSorting] = useState<SortingState>([]);
   const [globalFilter, setGlobalFilter] = useState("");
+  const [selectedRows, setSelectedRows] = useState<{[key: string]: boolean}>({});
 
   // Column Definitions
-  const columns = useMemo<ColumnDef<Order>[]>(
+  // Mobile columns (simplified version)
+  const mobileColumns = useMemo<ColumnDef<Order>[]>(
+    () => [
+      {
+        id: "select",
+        header: ({ table }) => (
+          <Checkbox
+            checked={table.getIsAllPageRowsSelected()}
+            onCheckedChange={(checked) =>
+              table.toggleAllPageRowsSelected(!!checked)
+            }
+          />
+        ),
+        cell: ({ row }) => (
+          <Checkbox
+            checked={row.getIsSelected()}
+            onCheckedChange={(checked) => row.toggleSelected(!!checked)}
+          />
+        ),
+        size: 40,
+      },
+      {
+        id: "mobileView",
+        header: () => <span className="text-foreground/40">Order Details</span>,
+        cell: ({ row }) => (
+          <div className="space-y-1">
+            <div className="flex items-center justify-between">
+              <span className="font-medium">{row.original.id}</span>
+              <span
+                className={cn(
+                  "flex items-center gap-1 text-xs",
+                  statusColors[row.original.status]
+                )}
+              >
+                <span className="w-1.5 h-1.5 rounded-full bg-current" />
+                {row.original.status}
+              </span>
+            </div>
+            <div className="flex items-center gap-2 text-xs text-muted-foreground">
+              <img
+                src={`https://avatar.iran.liara.run/public/boy?username=${row.original.user.avatar}`}
+                alt={row.original.user.name}
+                className="w-4 h-4 rounded-full"
+              />
+              <span>{row.original.user.name}</span>
+              <span>•</span>
+              <span>{row.original.date}</span>
+            </div>
+          </div>
+        ),
+      },
+    ],
+    []
+  );
+
+  // Desktop columns (full version)
+  const desktopColumns = useMemo<ColumnDef<Order>[]>(
     () => [
       {
         id: "select",
@@ -172,19 +229,40 @@ export const OrdersList: React.FC = () => {
     []
   );
 
+  // Detect if mobile view
+  const [isMobile, setIsMobile] = useState(false);
+  
+  React.useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  const columns = isMobile ? mobileColumns : desktopColumns;
+
   const table = useReactTable({
     data: orders,
     columns,
     state: {
       sorting,
       globalFilter,
+      rowSelection: selectedRows,
     },
     onSortingChange: setSorting,
     onGlobalFilterChange: setGlobalFilter,
+    onRowSelectionChange: setSelectedRows,
     getCoreRowModel: getCoreRowModel(),
     getSortedRowModel: getSortedRowModel(),
     getFilteredRowModel: getFilteredRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
+    initialState: {
+      pagination: {
+        pageSize: 10,
+      },
+    },
   });
 
   return (
@@ -193,9 +271,9 @@ export const OrdersList: React.FC = () => {
         <h1 className="text-sm font-semibold">Order List</h1>
       </div>
 
-      <Card className="border-none shadow-none bg-card p-0 w-screen">
-        <CardContent className="p-0 gap-0">
-          <div className="flex items-center justify-between bg-primary-light dark:bg-primary-light/15 p-2 rounded-xl">
+      <Card className="border-none shadow-none bg-card p-0">
+        <CardContent className="p-0">
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between bg-primary-light dark:bg-primary-light/15 p-2 rounded-xl gap-2">
             <div className="flex items-center gap-2">
               <Button size="icon" variant="ghost" className="h-7 w-7 p-0 cursor-pointer">
                 <Plus className="h-4 w-4" />
@@ -208,19 +286,20 @@ export const OrdersList: React.FC = () => {
               </Button>
             </div>
 
-            <div className="relative">
+            <div className="relative flex-1 sm:flex-none">
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
               <Input
                 type="search"
                 placeholder="Search"
                 value={globalFilter ?? ""}
                 onChange={(e) => setGlobalFilter(e.target.value)}
-                className="w-[160px] pl-9 h-7"
+                className="w-full sm:w-[160px] pl-9 h-7"
               />
             </div>
           </div>
 
-          <Table className="">
+          <div className="overflow-x-auto">
+            <Table className="w-full">
             <TableHeader>
               {table.getHeaderGroups().map((headerGroup) => (
                 <TableRow
@@ -259,10 +338,19 @@ export const OrdersList: React.FC = () => {
                 </TableRow>
               ))}
             </TableBody>
-          </Table>
+            </Table>
+          </div>
 
-          <div className="mt-6 flex justify-end w-full text-sm">
-            <Pagination className="w-fit flex justify-end px-6">
+          <div className="mt-6 flex flex-col sm:flex-row items-center justify-between gap-4 px-2 sm:px-6">
+            <div className="text-xs text-muted-foreground">
+              Showing {table.getState().pagination.pageIndex * table.getState().pagination.pageSize + 1} to{" "}
+              {Math.min(
+                (table.getState().pagination.pageIndex + 1) * table.getState().pagination.pageSize,
+                orders.length
+              )}{" "}
+              of {orders.length} orders
+            </div>
+            <Pagination className="w-auto">
               <PaginationContent>
                 <PaginationItem>
                   <PaginationPrevious
@@ -271,27 +359,53 @@ export const OrdersList: React.FC = () => {
                       e.preventDefault();
                       table.previousPage();
                     }}
-                    className={`${!table.getCanPreviousPage() && "cursor-not-allowed"}`}
+                    className={cn(
+                      "h-8 px-2 text-xs",
+                      !table.getCanPreviousPage() && "pointer-events-none opacity-50"
+                    )}
                   />
                 </PaginationItem>
-                {new Array(table.getPageCount()).fill(0).map((_, page) => (
-                  <PaginationItem key={page}>
-                    <PaginationLink
-                      href="#"
-                      isActive={table.getState().pagination.pageIndex === page}
-                      onClick={(e) => {
-                        e.preventDefault();
-                        table.setPageIndex(page);
-                      }}
-                      className={`text-xs ${
-                        table.getState().pagination.pageIndex === page &&
-                        "bg-foreground/10 border-none"
-                      }`}
-                    >
-                      {page + 1}
-                    </PaginationLink>
-                  </PaginationItem>
-                ))}
+                
+                {/* Show limited pages on mobile */}
+                {isMobile ? (
+                  <>
+                    <PaginationItem>
+                      <span className="text-xs px-2">
+                        {table.getState().pagination.pageIndex + 1} / {table.getPageCount()}
+                      </span>
+                    </PaginationItem>
+                  </>
+                ) : (
+                  // Show all pages on desktop
+                  new Array(Math.min(table.getPageCount(), 5)).fill(0).map((_, idx) => {
+                    const pageNumber = table.getState().pagination.pageIndex > 2 
+                      ? table.getState().pagination.pageIndex - 2 + idx
+                      : idx;
+                    
+                    if (pageNumber >= table.getPageCount() || pageNumber < 0) return null;
+                    
+                    return (
+                      <PaginationItem key={pageNumber}>
+                        <PaginationLink
+                          href="#"
+                          isActive={table.getState().pagination.pageIndex === pageNumber}
+                          onClick={(e) => {
+                            e.preventDefault();
+                            table.setPageIndex(pageNumber);
+                          }}
+                          className={cn(
+                            "text-xs h-8 w-8",
+                            table.getState().pagination.pageIndex === pageNumber &&
+                            "bg-foreground/10 border-none"
+                          )}
+                        >
+                          {pageNumber + 1}
+                        </PaginationLink>
+                      </PaginationItem>
+                    );
+                  })
+                )}
+                
                 <PaginationItem>
                   <PaginationNext
                     href="#"
@@ -299,7 +413,10 @@ export const OrdersList: React.FC = () => {
                       e.preventDefault();
                       table.nextPage();
                     }}
-                    className={`${!table.getCanNextPage() && "cursor-not-allowed"}`}
+                    className={cn(
+                      "h-8 px-2 text-xs",
+                      !table.getCanNextPage() && "pointer-events-none opacity-50"
+                    )}
                   />
                 </PaginationItem>
               </PaginationContent>
