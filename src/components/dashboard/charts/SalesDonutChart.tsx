@@ -64,15 +64,15 @@ export const SalesDonutChart: React.FC = () => {
         </div>
         <div className="mt-4 space-y-2 px-4">
           {data.map((channel) => (
-            <div key={channel.name} className="flex items-center justify-between text-sm">
+            <div key={channel.name} className="flex items-center justify-between text-xs">
               <div className="flex items-center gap-2">
                 <div 
                   className="w-3 h-3 rounded-full" 
                   style={{ backgroundColor: channel.color }}
                 />
-                <span className="text-muted-foreground">{channel.name}</span>
+                <span className="">{channel.name}</span>
               </div>
-              <span className="font-medium">${channel.value.toFixed(2)}</span>
+              <span className="">${channel.value.toFixed(2)}</span>
             </div>
           ))}
         </div>

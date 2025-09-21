@@ -10,7 +10,7 @@ interface UIState {
 
 const initialState: UIState = {
   sidebarOpen: true,
-  rightSidebarOpen: true,
+  rightSidebarOpen: false,
   searchQuery: '',
   activeView: 'Default',
 };

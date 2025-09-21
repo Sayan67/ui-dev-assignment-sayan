@@ -40,7 +40,7 @@ export const WorldMap: React.FC = () => {
       templateField: "polygonSettings",
       fillOpacity: 0.6,
       fill: am5.color(0x8b8b8b),
-      strokeWidth: 0.5,
+      strokeWidth: 0.2,
       stroke: am5.color(0x000000),
     });
 
@@ -49,10 +49,8 @@ export const WorldMap: React.FC = () => {
 
     pointSeries.bullets.push(() => {
       const circle = am5.Circle.new(root, {
-        radius: 2,
+        radius: 4,
         fill: am5.color(0x0ea5e9),
-        stroke: am5.color(0xffffff),
-        strokeWidth: 2,
         tooltipText: "{name}: ${revenue}K",
       });
 

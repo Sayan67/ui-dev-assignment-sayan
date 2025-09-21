@@ -26,7 +26,7 @@ export const ProjectionsChart: React.FC = () => {
   return (
     <Card className="border-none xl:w-1/2 h-[300px] xl:h-[252px] py-4 px-0 shadow-none bg-primary-light dark:bg-primary-light/15 text-foreground">
       <CardHeader>
-        <CardTitle className="text-base font-normal">Projections vs Actuals</CardTitle>
+        <CardTitle className="text-sm font-semibold">Projections vs Actuals</CardTitle>
       </CardHeader>
       <CardContent className='pr-4'>
         <ChartContainer config={chartConfig} className="h-[220px] xl:h-[180px] w-full">

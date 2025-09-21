@@ -98,13 +98,16 @@ src/
 - [x] Theme system (dark/light mode)
 - [x] Layout components (Sidebar, Header, RightSidebar)
 - [x] React Router implementation for navigation
+- [x] Dashboard cards (Customers, Orders, Revenue, Growth)
+- [x] Chart implementations (Projections, Revenue, World Map, Sales Donut)
+- [x] Data tables with Top Selling Products
+- [x] Orders List page with pagination and filtering
+- [x] Notifications and Activities panels in RightSidebar
 
 ### In Progress 🔄
-- [ ] Dashboard cards (Customers, Orders, Revenue, Growth)
-- [ ] Chart implementations
-- [ ] Data tables with sorting/pagination
-- [ ] Search functionality
-- [ ] Responsive design
+- [ ] Search functionality (global search implementation)
+- [ ] Responsive design for mobile and tablet
+- [ ] Microinteractions and animations
 
 ### Upcoming 📋
 - [ ] Microinteractions and animations
