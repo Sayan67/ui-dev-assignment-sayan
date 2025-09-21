@@ -70,7 +70,6 @@ const statusColors = {
 export const OrdersList: React.FC = () => {
   const [sorting, setSorting] = useState<SortingState>([]);
   const [globalFilter, setGlobalFilter] = useState("");
-  const [selectedOrders, setSelectedOrders] = useState<string[]>([]);
 
   // Column Definitions
   const columns = useMemo<ColumnDef<Order>[]>(

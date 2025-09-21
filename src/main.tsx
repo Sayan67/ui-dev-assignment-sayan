@@ -6,6 +6,7 @@ import { Provider } from "react-redux";
 import { store } from "./store/index.ts";
 import { RouterProvider } from "react-router-dom";
 import { router } from "./router";
+import { Analytics } from "@vercel/analytics/react"
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
@@ -13,6 +14,7 @@ createRoot(document.getElementById("root")!).render(
       <Provider store={store}>
         <RouterProvider router={router} />
       </Provider>
+      <Analytics />
     </ThemeProvider>
   </StrictMode>
 );
