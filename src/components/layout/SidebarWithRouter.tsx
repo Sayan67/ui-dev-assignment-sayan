@@ -171,7 +171,7 @@ export const SidebarWithRouter: React.FC = () => {
             }
           }}
           className={cn(
-            "w-full flex items-center gap-2 px-2 py-1.5 text-sm rounded-lg transition-all",
+            "w-full flex items-center gap-2 px-2 py-1.5 text-sm rounded-lg transition-all group",
             !hasChildren && "pl-9",
             !hasChildren && isActive && "bg-foreground/5 relative",
             level > 0 && "cursor-pointer hover:bg-foreground/5",
@@ -192,7 +192,7 @@ export const SidebarWithRouter: React.FC = () => {
             </span>
           )}
           {level > 0 && item.icon}
-          <span className="flex-1 text-left">{item.label}</span>
+          <span className="flex-1 text-left group-hover:translate-x-1.5 duration-200">{item.label}</span>
         </button>
         {level > 0 && hasChildren && isExpanded && (
           <div className="mt-1">

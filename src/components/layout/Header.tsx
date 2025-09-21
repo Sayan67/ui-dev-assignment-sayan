@@ -103,9 +103,9 @@ export const Header: React.FC = () => {
 
           <ModeToggle/>
 
-          <PiClockCounterClockwiseDuotone className="h-5 w-5 cursor-pointer" />
+          <PiClockCounterClockwiseDuotone className="h-5 w-5 cursor-pointer hover:-rotate-45 duration-200" />
 
-          <PiBellDuotone className="h-5 w-5 cursor-pointer" />
+          <PiBellDuotone className="h-5 w-5 cursor-pointer hover:animate-bell-ring origin-top" />
           {/* <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant="ghost" size="icon" className="relative">
