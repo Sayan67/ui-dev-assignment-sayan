@@ -1,4 +1,4 @@
-import React from "react";
+import React, { lazy } from "react";
 import { useAppSelector } from "@/hooks/redux";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { TrendingUp, TrendingDown } from "lucide-react";
@@ -6,9 +6,19 @@ import { cn } from "@/lib/utils";
 import { ProjectionsChart } from "./charts/ProjectionsChart";
 import { RevenueChart } from "./charts/RevenueChart";
 import { WorldMap } from "./charts/WorldMap";
-import { SalesDonutChart } from "./charts/SalesDonutChart";
-import { TopSellingProducts } from "./tables/TopSellingProducts";
+// import { SalesDonutChart } from "./charts/SalesDonutChart";
+// import { TopSellingProducts } from "./tables/TopSellingProducts";
 import { Link } from "react-router-dom";
+const TopSellingProducts = lazy(() =>
+  import("./tables/TopSellingProducts").then((module) => ({
+    default: module.TopSellingProducts,
+  }))
+);
+const SalesDonutChart = lazy(() =>
+  import("./charts/SalesDonutChart").then((module) => ({
+    default: module.SalesDonutChart,
+  }))
+);
 
 const DefaultScreen: React.FC = () => {
   const dashboardData = useAppSelector((state) => state.dashboard.data);
@@ -19,28 +29,28 @@ const DefaultScreen: React.FC = () => {
       value: dashboardData.customers.count.toLocaleString(),
       change: dashboardData.customers.change,
       trend: dashboardData.customers.trend,
-      href : "/dashboards/ecommerce/customers"
+      href: "/dashboards/ecommerce/customers",
     },
     {
       title: "Orders",
       value: dashboardData.orders.count.toLocaleString(),
       change: dashboardData.orders.change,
       trend: dashboardData.orders.trend,
-      href : "/dashboards/ecommerce/orders"
+      href: "/dashboards/ecommerce/orders",
     },
     {
       title: "Revenue",
       value: `$${dashboardData.revenue.amount}`,
       change: dashboardData.revenue.change,
       trend: dashboardData.revenue.trend,
-      href : "/dashboards/ecommerce/revenue"
+      href: "/dashboards/ecommerce/revenue",
     },
     {
       title: "Growth",
       value: `${dashboardData.growth.percentage}%`,
       change: dashboardData.growth.change,
       trend: dashboardData.growth.trend,
-      href : "/dashboards/ecommerce/growth"
+      href: "/dashboards/ecommerce/growth",
     },
   ];
 
@@ -55,7 +65,7 @@ const DefaultScreen: React.FC = () => {
               <Card
                 key={stat.title}
                 className={cn(
-                  "relative overflow-hidden border-none shadow-none h-[112px] px-0 py-6 gap-2 cursor-pointer",
+                  "relative overflow-hidden border-none shadow-none h-[112px] px-0 py-6 gap-2 cursor-pointer hover:shadow-md shadow-foreground/10 transition-shadow",
                   index === 0 && "bg-primary-blue text-[#1c1c1c]",
                   (index === 1 || index === 2) &&
                     "bg-primary-light dark:bg-primary-light/15",

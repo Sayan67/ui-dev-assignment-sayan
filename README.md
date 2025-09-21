@@ -2,20 +2,25 @@
 
 A modern, responsive dashboard application built with React, TypeScript, Vite, Tailwind CSS, and shadcn/ui. This project demonstrates pixel-perfect implementation of a Figma design with advanced state management, animations, and comprehensive functionality.
 
+## Live Demo
+Live : [https://ui-dev-assignment-sayan.vercel.app/](https://ui-dev-assignment-sayan.vercel.app/)
+
 ## 🚀 Features
 
 - **Dark/Light Theme Toggle**: Seamless theme switching with persistent user preferences
 - **Responsive Design**: Optimized for desktop, tablet, and mobile devices
-- **Advanced State Management**: Redux Toolkit for efficient state handling
 - **Interactive Components**: 
-  - Real-time data visualization with charts
+  - Real data **visualization with charts**
   - Sortable and paginated data tables
-  - Interactive map visualization
-  - Search functionality
-  - Notifications system
+  - **Interactive Map** visualization
+  - **Searching** , **Sorting**, **Pagination** functionality
 - **Smooth Animations**: Microinteractions and transitions using Framer Motion
 - **Type Safety**: Full TypeScript implementation
 - **Component Library**: shadcn/ui for consistent, accessible UI components
+
+## Bonus Implementations
+- **Advanced State Management**: Redux Toolkit for efficient state handling
+
 
 ## 📋 Prerequisites
 
@@ -103,19 +108,16 @@ src/
 - [x] Data tables with Top Selling Products
 - [x] Orders List page with pagination and filtering
 - [x] Notifications and Activities panels in RightSidebar
+- [X] Search functionality (global search implementation)
+- [X] Deployment
+- [X] Microinteractions and animations
 
 ### In Progress 🔄
-- [ ] Search functionality (global search implementation)
 - [ ] Responsive design for mobile and tablet
-- [ ] Microinteractions and animations
+- [ ] ARIA roles and accessibility improvements
 
 ### Upcoming 📋
-- [ ] Microinteractions and animations
-- [ ] Notifications system
-- [ ] Performance optimizations
 - [ ] Testing implementation
-- [ ] Documentation completion
-- [ ] Deployment
 
 ## 🎯 Challenges & Solutions
 
